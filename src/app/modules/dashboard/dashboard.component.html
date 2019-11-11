@@ -1,0 +1,197 @@
+<div class="d-flex ">
+
+
+    <div class="d-flex">
+        <mat-form-field appearance="fill">
+            <mat-label>From </mat-label>
+            <input matInput [matDatepicker]="picker1" (dateChange)="dateChange(0 , $event)" autocomplete="off">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1 color="primary"></mat-datepicker>
+        </mat-form-field>
+    </div>
+
+    <div class="d-flex ml-3">
+        <mat-form-field appearance="fill">
+            <mat-label>To </mat-label>
+            <input matInput [matDatepicker]="picker2" (dateChange)="dateChange(1 , $event)" autocomplete="off">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2 color="primary"></mat-datepicker>
+        </mat-form-field>
+    </div>
+
+    <div class="d-flex ml-3">
+        <mat-form-field appearance="fill">
+            <mat-label>Geo</mat-label>
+            <mat-select>
+                <mat-option *ngFor="let g of Geo" [value]="g.id">{{g.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="d-flex ml-3">
+        <mat-form-field appearance="fill">
+            <mat-label>OS</mat-label>
+            <mat-select (selectionChange)="osChange($event.value)">
+                <mat-option *ngFor="let os of OS" [value]="os.name">{{os.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+
+    <div class="d-flex ml-3">
+        <mat-form-field appearance="fill">
+            <mat-label>Campaign Type</mat-label>
+            <mat-select (selectionChange)="ctChange($event.value)">
+                <mat-option *ngFor="let ct of cType" [value]="ct.name">{{ct.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="d-flex ml-3">
+        <mat-form-field appearance="fill">
+            <mat-label>Creative size</mat-label>
+            <mat-select>
+                <mat-option *ngFor="let cr of crSize" [value]="cr.id">{{cr.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+
+    <!-- <div *ngIf="message" class='alertdiv'
+        [ngClass]="{ 'alert': message, 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error', 'alert-warning': message.type === 'warning' }">
+        {{message.text}}
+        <a mat-button (click)="clearAlert()">Got it</a>
+    </div> -->
+
+
+
+
+
+</div>
+
+
+
+
+<div class="d-flex flex-column">
+
+    <div class="d-flex">
+        <div class="m-auto mat-elevation-z8">
+            <!-- <app-widget-area chartTitle='Revenue per billion bids' useKey='revenue' [data]="bigChart"></app-widget-area> -->
+            <app-widget-area chartTitle='Margin (Revenue - Media Cost)' useKey='margin' [data]="bigChart">
+            </app-widget-area>
+        </div>
+        <div class="m-auto mat-elevation-z8">
+            <!-- <app-widget-area chartTitle='Tech Cost' useKey='tcost' [data]="bigChart"></app-widget-area> -->
+            <app-widget-area chartTitle='Profitability (Margin - Cost)' useKey='profit' [data]="bigChart">
+            </app-widget-area>
+
+        </div>
+    </div>
+
+
+    <div class="clearfix my-3">
+        <p style="visibility: hidden;">lol</p>
+    </div>
+
+
+    <div class="d-flex">
+        <div class="m-auto mat-elevation-z8">
+            <app-widget-area chartTitle='Media Cost ' useKey='mcost' [data]="bigChart">
+            </app-widget-area>
+        </div>
+        <div class="m-auto mat-elevation-z8">
+            <!-- <app-widget-area chartTitle='Profitability (Margin - Cost)' useKey='profit' [data]="bigChart">
+            </app-widget-area> -->
+            <app-widget-area chartTitle='Tech Cost' useKey='tcost' [data]="bigChart"></app-widget-area>
+
+        </div>
+    </div>
+
+
+    <div class="clearfix my-3">
+        <p style="visibility: hidden;">lol</p>
+    </div>
+
+
+    <div class="d-flex">
+        <div class="m-auto mat-elevation-z8">
+            <!-- <app-widget-area chartTitle='Margin (Revenue - Media Cost)' useKey='margin' [data]="bigChart">
+            </app-widget-area> -->
+            <app-widget-area chartTitle='Revenue per billion bids' useKey='revenue' [data]="bigChart"></app-widget-area>
+
+        </div>
+
+        <div class="m-auto mat-elevation-z8">
+            <app-widget-area chartTitle='Overall Revenue' useKey='orevenue' [data]="bigChart">
+            </app-widget-area>
+
+        </div>
+    </div>
+
+
+
+</div>
+
+<br>
+
+<mat-divider></mat-divider>
+
+<br>
+
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+    <div fxFlex="100">
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource">
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="revenue">
+                    <th mat-header-cell *matHeaderCellDef> Revenue </th>
+                    <td mat-cell *matCellDef="let element"> ${{element.revenue}} </td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="tcost">
+                    <th mat-header-cell *matHeaderCellDef> Tech Cost </th>
+                    <td mat-cell *matCellDef="let element"> ${{element.tcost}} </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="mcost">
+                    <th mat-header-cell *matHeaderCellDef> Media Cost </th>
+                    <td mat-cell *matCellDef="let element">${{element.mcost}} </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="profit">
+                    <th mat-header-cell *matHeaderCellDef> Profit </th>
+                    <td mat-cell *matCellDef="let element"> ${{element.profit}} </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="margin">
+                    <th mat-header-cell *matHeaderCellDef> Margin </th>
+                    <td mat-cell *matCellDef="let element"> ${{element.margin}} </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="orevenue">
+                    <th mat-header-cell *matHeaderCellDef> Overall Revenue </th>
+                    <td mat-cell *matCellDef="let element"> ${{element.orevenue}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;let i=index"
+                    [ngClass]="{'redd': median >= row.orevenue , 'greenn': row.orevenue > median }"></tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+        </div>
+
+    </div>
+</div>

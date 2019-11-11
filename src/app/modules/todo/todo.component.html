@@ -1,0 +1,108 @@
+<div class="example-action-buttons">
+    <button mat-raised-button color="primary" (click)="accordion.openAll()">Expand All</button>
+    <button mat-button color="warn" (click)="accordion.closeAll()">Collapse All</button>
+</div>
+<mat-accordion class="example-headers-align" multi>
+
+    <ng-container *ngFor='let d of data'>
+
+        <mat-expansion-panel [ngClass]="{ 'redd' : d.isRed , 'greenn': !d.isRed}">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <p>{{d.description}}</p>
+                </mat-panel-title>
+                <mat-panel-description>
+                    <mat-icon></mat-icon>
+                    <img [src]="d.flag" alt="user" width="30" height="30">
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <!-- 
+            <div class="d-flex flex-column">
+                <div class='d-flex flex-row'>
+                    <p><strong>description :</strong> </p>
+                    <p class='ml-2'>{{d.description}}</p>
+                </div>
+                <div class='d-flex'>
+                    <p><strong>received on :</strong> </p>
+                    <p class=ml-2>{{d.received}}</p>
+                </div>
+
+            </div> -->
+
+
+            <div *ngIf='d.showTable' fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+                <div fxFlex="100">
+                    <div class="mat-elevation-z8">
+                        <table mat-table [dataSource]="d.table">
+
+                            <!-- Position Column -->
+                            <ng-container matColumnDef="name">
+                                <th mat-header-cell *matHeaderCellDef> Campaign name </th>
+                                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                            </ng-container>
+
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="cmpStart">
+                                <th mat-header-cell *matHeaderCellDef> Campaign Start </th>
+                                <td mat-cell *matCellDef="let element"> {{element.cmpStart}} </td>
+                            </ng-container>
+
+                            <!-- Weight Column -->
+                            <ng-container matColumnDef="cmpType">
+                                <th mat-header-cell *matHeaderCellDef> Campaign Type </th>
+                                <td mat-cell *matCellDef="let element"> {{element.cmpType}} </td>
+                            </ng-container>
+
+                            <!-- Symbol Column -->
+                            <ng-container matColumnDef="advName">
+                                <th mat-header-cell *matHeaderCellDef> Advertiser Name </th>
+                                <td mat-cell *matCellDef="let element"> {{element.advName}} </td>
+                            </ng-container>
+
+                            <!-- Symbol Column -->
+                            <ng-container matColumnDef="geo">
+                                <th mat-header-cell *matHeaderCellDef> Geo </th>
+                                <td mat-cell *matCellDef="let element"> {{element.geo}} </td>
+                            </ng-container>
+
+                            <!-- Symbol Column -->
+                            <ng-container matColumnDef="adSize">
+                                <th mat-header-cell *matHeaderCellDef> Ad Size </th>
+                                <td mat-cell *matCellDef="let element"> {{element.adSize}} </td>
+                            </ng-container>
+
+                            <!-- Symbol Column -->
+                            <ng-container matColumnDef="os">
+                                <th mat-header-cell *matHeaderCellDef> OS </th>
+                                <td mat-cell *matCellDef="let element"> {{element.os}} </td>
+                            </ng-container>
+
+                            <!-- Symbol Column -->
+                            <ng-container matColumnDef="demand">
+                                <th mat-header-cell *matHeaderCellDef> Demand </th>
+                                <td mat-cell *matCellDef="let element"> {{element.demand}} </td>
+                            </ng-container>
+
+                            <!-- Symbol Column -->
+                            <ng-container matColumnDef="traffic">
+                                <th mat-header-cell *matHeaderCellDef> Traffic </th>
+                                <td mat-cell *matCellDef="let element"> {{element.traffic}} </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+
+                        <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </mat-expansion-panel>
+
+    </ng-container>
+
+
+</mat-accordion>

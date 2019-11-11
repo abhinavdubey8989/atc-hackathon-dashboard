@@ -1,1 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
+// * {
+//     background-color: grey;
+//     color: wheat;
+// }
+
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-expansion-panel-header-description {
+    flex-grow: 0 !important;
+}
+
+.redd {
+    background: #f8d1cf !important;
+}
+
+.greenn {
+    background: #d8eab9 !important;
+}
